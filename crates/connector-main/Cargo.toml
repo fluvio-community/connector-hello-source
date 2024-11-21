@@ -7,11 +7,12 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.77"
-external-lib = { path = "../external-lib"}
-
 async-std = { workspace = true }
-fluvio = { git = "https://github.com/infinyon/fluvio", rev = "v0.11.5" }
-fluvio-connector-common = { git = "https://github.com/infinyon/fluvio", rev = "v0.11.5", features = ["derive"]}
 serde = { workspace = true }
 tokio = { workspace = true, default-features = false, features = ["time"] }
 tracing = "0.1"
+
+fluvio = { git = "https://github.com/infinyon/fluvio", rev = "v0.13.0" }
+fluvio-connector-common = { git = "https://github.com/infinyon/fluvio", rev = "v0.13.0", features = ["derive"]}
+
+external-lib = { path = "../external-lib"}

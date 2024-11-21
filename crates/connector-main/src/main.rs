@@ -1,10 +1,6 @@
 use anyhow::anyhow;
-use fluvio::{RecordKey, TopicProducer};
-use fluvio_connector_common::{
-    connector,
-    Result,
-    secret::SecretString,
-};
+use fluvio::{RecordKey, TopicProducerPool};
+use fluvio_connector_common::{connector, secret::SecretString, Result};
 use std::thread::sleep;
 use tracing::info;
 
@@ -21,7 +17,7 @@ pub(crate) struct CustomConfig {
 }
 
 #[connector(source)]
-async fn start(config: CustomConfig, producer: TopicProducer) -> Result<()> {
+async fn start(config: CustomConfig, producer: TopicProducerPool) -> Result<()> {
     println!("Starting source connector with {config:?}");
     if config.interval_sec < 60 {
         return Err(anyhow!("interval_sec: minimum is 60 seconds"));
@@ -65,5 +61,3 @@ async fn start(config: CustomConfig, producer: TopicProducer) -> Result<()> {
         producer.flush().await?;
     }
 }
-
-

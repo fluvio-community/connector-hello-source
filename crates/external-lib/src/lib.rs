@@ -1,7 +1,7 @@
 use anyhow::{anyhow, Result};
-use serde::{Deserialize, Serialize};
 use geojson::Feature as GeoFeature;
 use geojson::JsonValue;
+use serde::{Deserialize, Serialize};
 
 /// updated once per minute
 const ENDPOINT: &str = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson";
@@ -41,7 +41,10 @@ impl UsgsFeatureCollectionExample {
             return Err(anyhow!("no generated key"));
         };
         let Some(generated) = generated.as_i64() else {
-            return Err(anyhow!("couldn't convert \"generated\" value to i64 {}", generated));
+            return Err(anyhow!(
+                "couldn't convert \"generated\" value to i64 {}",
+                generated
+            ));
         };
         Ok(generated)
     }
@@ -54,9 +57,9 @@ impl UsgsFeatureCollectionExample {
         if !self.metadata.contains_key("count") {
             return false;
         }
-        let count = self.metadata("count").map_or(0i64, |val| {
-            val.as_i64().unwrap_or_default()
-        });
+        let count = self
+            .metadata("count")
+            .map_or(0i64, |val| val.as_i64().unwrap_or_default());
         let count_ok = count == self.features.len() as i64;
 
         let generated = self.generated();
@@ -70,7 +73,6 @@ mod tests {
     use std::io::Write;
 
     use anyhow::anyhow;
-    use reqwest;
 
     use super::*;
 
@@ -99,7 +101,6 @@ mod tests {
         Ok(())
     }
 
-
     #[ignore]
     #[tokio::test]
     async fn get_endpoint_raw_text() -> anyhow::Result<()> {
@@ -112,7 +113,7 @@ mod tests {
 
         // write file as sample fixture
         let mut file = std::fs::File::create(SAMPLE_JSON)?;
-        file.write_all(&body.as_bytes())?;
+        file.write_all(body.as_bytes())?;
         Ok(())
     }
 }
