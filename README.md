@@ -115,17 +115,15 @@ needing to develop a custom connector. In the case of the USGS feed, an alternat
 way to process the data would be to use the generic http source connector with
 smartmodules to process the geojson data into a record stream.
 
-See our docs at:
-* https://www.fluvio.io/connectors/inbound/http/ or
-* https://www.fluvio.io/connectors/outbound/http/.
+See additional docs at:
+* https://www.fluvio.io/docs/connectors/overview
 
 For services which may provide webhook integration, you can also use webook
 APIs with the Infinyon cloud webhook gateway at:
-* https://www.infinyon.com/docs/cli/webhook/
+* https://www.fluvio.io/docs/cloud/how-to/use-webhooks
 
-See a list of available connectors at
- * https://fluvio.io/connectors/cdk/github-examples/
-
+In addition to community connectors here, see a list of available connectors from the hub at:
+ * https://www.fluvio.io/docs/hub/connectors/
 
 ## Collaborate
 
